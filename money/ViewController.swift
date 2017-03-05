@@ -32,13 +32,22 @@ class ViewController: UITableViewController {
             }
             
             if ((db?.open()) != nil) {
-                //let sql = "create table if not exists trans_info(trans_num integer primary key autoincrement, usr_id text, bnkac_id text, trans_dt text, trans_tm text, pay_trans_mns_cd text, rcv_trans_mns_cd text, trans_div_cd text, hgh_clssf_cd text, mdl_clssf_cd text, low_clssf_cd text, trans_cntnt text, trans_amt integer, sort_ord_num integer)"
+                let sqlUsrInfo = "create table if not exists usr_info(usr_id text primary key, usr_pwd text, usr_nm text)"
+                if !(db?.executeStatements(sqlUsrInfo))! {
+                    NSLog("데이터 저장소 생성 오류[USR_INFO]")
+                }
+                
+                let sqlBnkacInfo = "create table if not exists bnkac_info(bnkac_id text primary key, usr_id text REFERENCES usr_info(usr_id), bnkac_nm text, bnkac_strt_dt text, bnkac_mntry_unit text)"
+                if !(db?.executeStatements(sqlBnkacInfo))! {
+                    NSLog("데이터 저장소 생성 오류[USR_INFO]")
+                }
+                
                 let sqlTransInfo = "create table if not exists trans_info(trans_num integer primary key autoincrement, usr_id text, bnkac_id text, trans_dt text, trans_tm text, pay_trans_mns_cd text, rcv_trans_mns_cd text, trans_div_cd text, hgh_clssf_cd text, mdl_clssf_cd text, low_clssf_cd text, trans_cntnt text, trans_amt numeric, sort_ord_num integer)"
                 if !(db?.executeStatements(sqlTransInfo))! {
                     NSLog("데이터 저장소 생성 오류[TRANS_INFO]")
                 }
                 
-                let sqlTransMns = "create table if not exists trans_mns(trans_mns_cd text, trans_mns_nm text)"
+                let sqlTransMns = "create table if not exists trans_mns(trans_mns_cd text primary key, trans_mns_nm text)"
                 if !(db?.executeStatements(sqlTransMns))! {
                     NSLog("데이터 저장소 생성 오류[TRANS_MNS]")
                 }
