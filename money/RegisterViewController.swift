@@ -101,7 +101,7 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
         NSLog(strDt)
         
         if ((db?.open()) != nil) {
-            let sqlTransInfo = "insert into trans_info(trans_dt, trans_tm, pay_trans_mns_cd, trans_cntnt, trans_amt) values('\(strDt)', '000000', '\(transMnsCd!)', '\(txtTransCntnt.text!)', '\(txtTransAmt.text!)')"
+            let sqlTransInfo = "insert into trans_info(usr_id, bnkac_id, trans_dt, trans_tm, pay_trans_mns_cd, trans_div_cd, trans_cntnt, trans_amt) values('snooper', '001', '\(strDt)', '000000', '\(transMnsCd!)', '1', '\(txtTransCntnt.text!)', '\(txtTransAmt.text!)')"
             db?.executeUpdate(sqlTransInfo, withArgumentsIn: nil)
             
             if (db?.hadError())! {
