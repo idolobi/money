@@ -9,6 +9,8 @@
 import UIKit
 
 class RegisterViewController: UITableViewController, UIPickerViewDelegate {
+    let myLocale = "ko_KR"
+    
     var databasePath = String()
     
     @IBOutlet weak var txtTransDt: UITextField!
@@ -31,12 +33,8 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
         super.viewDidLoad()
         NSLog("로그 : RegisterViewController viewDidLoad() 시작")
         
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.dateFormat = "yyyy년MM월dd일(E)" // ko_KR
-        let strDate = dateFormatter.string(from: date as Date)
+        let myDateTime = MyDateTime(locale: self.myLocale)
+        let strDate = myDateTime.nowForDisplay()
         txtTransDt.text = strDate
         
         sgmTransSlctn.selectedSegmentIndex = 1
@@ -93,11 +91,8 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     @IBAction func saveTrans(_ sender: UIBarButtonItem) {
         let db = FMDatabase(path: databasePath as String)
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년MM월dd일(E)"
-        let selDt = dateFormatter.date(from: txtTransDt.text!)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let strDt = dateFormatter.string(from: selDt!)
+        let myDateTime = MyDateTime(locale: self.myLocale)
+        let strDt = myDateTime.dateForDB(date: txtTransDt.text!)
         NSLog(strDt)
         
         if ((db?.open()) != nil) {
@@ -118,13 +113,9 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     // 데이트
     @IBAction func bgnEditTransDt(_ sender: UITextField) {
         sender.tintColor = UIColor.clear
-        
         pickUpDate(sender)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년MM월dd일(E)" // 포멧이 있어야 오류가 안나네... ko_KR
-        let selDt = dateFormatter.date(from: txtTransDt.text!)
-        datePicker.date = selDt!
+        let myDateTime = MyDateTime(locale: self.myLocale)
+        datePicker.date = myDateTime.dateForPicker(date: txtTransDt.text!)
     }
     
     // 결제수단
@@ -198,11 +189,8 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     // 원본출처(https://iosdevcenters.blogspot.com/2016/03/ios9-uidatepicker-example-with.html)
     // 데이트픽커 완료 버튼 선택시
     func doneClick() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.dateFormat = "yyyy년MM월dd일(E)" // 이 위치에 있어야 형식이 적용됨. 선택 가능해야 함(ko_KR)
-        txtTransDt.text = dateFormatter.string(from: datePicker.date)
+        let myDateTime = MyDateTime(locale: self.myLocale)
+        txtTransDt.text = myDateTime.dateForPicker(date: datePicker.date)
         txtTransDt.resignFirstResponder()
     }
     

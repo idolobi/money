@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UITableViewController {
+    let myLocale = "ko_KR"
+    
     var databasePath = String()
     var transInfoArr = Array<TransInfo>()
     var transInfoSet = TransInfoSet()
@@ -143,7 +145,8 @@ class ViewController: UITableViewController {
                 while resultData!.next() {
                     rowNum += 1
                     
-                    newTransDt = resultData!.string(forColumn: "trans_dt")!
+                    let myDateTime = MyDateTime(locale: self.myLocale)
+                    newTransDt = myDateTime.dateForDisplay(date: resultData!.string(forColumn: "trans_dt")!)
                     
                     if isFirst {
                         NSLog("첫번째 로우")
