@@ -8,7 +8,10 @@
 
 import UIKit
 
-class RegisterViewController: UITableViewController, UIPickerViewDelegate {
+//
+//  사용하지 않음 2017. 9. 19..
+//
+class RegisterViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     let myLocale = "ko_KR"
     
     var databasePath = String()
@@ -22,12 +25,18 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     @IBOutlet weak var txtTransSlctn: UITextField!
     
     var datePicker: UIDatePicker!
-    var textPicker: UIPickerView!
-    var pickerData = [["000", "선택"]]
+    var textPickerTransMns: UIPickerView? //계좌(결제수단)
+    var textPickerTransSlctn: UIPickerView? //분류
+    //var pickerData = [["000", "선택"]] //기본 값
     var pickerTransMns = [["000", "선택"]]
-    var slctdPickerData = ["", ""]
+    var pickerTransSlctn = [[["000", "선택"], ["001", "용돈"], ["002", "생활비"], ["003", "쇼핑"], ["004", "문화"]], [["00", "선택"]]]
+    var slctdPickerDataTransMns = ["", ""] //선택된 값
+    var slctdPickerDataTransSlctnL1 = ["", ""]
+    var slctdPickerDataTransSlctnL2 = ["", ""]
     
     var transMnsCd: String!
+    var transSlctnL1: String!
+    var transSlctnL2: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +52,15 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
         tvwMemo.layer.borderColor = borderColor.cgColor
         tvwMemo.layer.borderWidth = 0.5
         tvwMemo.layer.cornerRadius = 5.0
-        tvwMemo.text = "메모"
-        tvwMemo.textColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
+        //tvwMemo.text = "메모"
+        //tvwMemo.textColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
+        
+        let bundle = Bundle.main
+        databasePath = bundle.path(forResource: "money", ofType: "db")!
         
         let fileMgr = FileManager.default
-        let dirPaths = fileMgr.urls(for: .documentDirectory, in: .userDomainMask)
-        databasePath = dirPaths[0].appendingPathComponent("money.db").path
+        //let dirPaths = fileMgr.urls(for: .documentDirectory, in: .userDomainMask)
+        //databasePath = dirPaths[0].appendingPathComponent("money.db").path
         
         NSLog("로그 : RegisterViewController DB 파일 위치 세팅(" + databasePath + ")")
         
@@ -120,13 +132,13 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     
     // 결제수단
     @IBAction func bgnEditTransMns(_ sender: UITextField) {
-        pickerData = pickerTransMns //["선택", "현금", "신한카드", "신한체크", "하나체크"]
+        //pickerData = pickerTransMns //["선택", "현금", "신한카드", "신한체크", "하나체크"]
         pickUpTextTransMns(sender)
     }
     
     // 선택
     @IBAction func bgnEditTransSlctn(_ sender: UITextField) {
-        //pickerData = ["선택", "용돈", "생활비", "쇼핑", "문화"]
+        //pickerData = [["선택", "용돈", "생활비", "쇼핑", "문화"], ["A", "B", "C"]]
         pickUpTextTransSlctn(sender)
     }
     
@@ -146,19 +158,23 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     
     // 메모
     func textViewDidBeginEditing(_ textView: UITextView) {
+        /*
         if textView.text == "메모" {
             textView.text = ""
         }
         textView.resignFirstResponder()
+        */
     }
     
     // 메모
     func textViewDidEndEditing(_ textView: UITextView) {
+        /*
         if textView.text == "" {
             textView.text = "메모"
             textView.textColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
         }
         textView.resignFirstResponder()
+        */
     }
     
     // 원본출처(https://iosdevcenters.blogspot.com/2016/03/ios9-uidatepicker-example-with.html)
@@ -207,13 +223,13 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     
     // 결제수단 픽커
     func pickUpTextTransMns(_ sender: UITextField) {
-        textPicker = UIPickerView(frame:CGRect(x:0, y:0, width:self.view.frame.size.width, height:216))
-        textPicker.backgroundColor = .white
-        textPicker.showsSelectionIndicator = true
-        textPicker.delegate = self
-        //textPicker.dataSource = self
+        textPickerTransMns = UIPickerView(frame:CGRect(x:0, y:0, width:self.view.frame.size.width, height:216))
+        textPickerTransMns?.backgroundColor = .white
+        textPickerTransMns?.showsSelectionIndicator = true
+        textPickerTransMns?.delegate = self
+        textPickerTransMns?.dataSource = self
         
-        sender.inputView = textPicker
+        sender.inputView = textPickerTransMns
         
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
@@ -232,8 +248,8 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     // 결제수단 선택
     func doneTextTransMnsPicker() {
         // 코드를 저장하기 위한 텍스트 박스 필요
-        transMnsCd = slctdPickerData[0]
-        txtTransMns.text = slctdPickerData[1]
+        transMnsCd = slctdPickerDataTransMns[0]
+        txtTransMns.text = slctdPickerDataTransMns[1]
         txtTransMns.resignFirstResponder()
     }
     
@@ -244,13 +260,13 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     
     // TransSlctn
     func pickUpTextTransSlctn(_ sender: UITextField) {
-        textPicker = UIPickerView(frame:CGRect(x:0, y:0, width:self.view.frame.size.width, height:216))
-        textPicker.backgroundColor = .white
-        textPicker.showsSelectionIndicator = true
-        textPicker.delegate = self
-        //textPicker.dataSource = self
+        textPickerTransSlctn = UIPickerView(frame:CGRect(x:0, y:0, width:self.view.frame.size.width, height:216))
+        textPickerTransSlctn?.backgroundColor = .white
+        textPickerTransSlctn?.showsSelectionIndicator = true
+        textPickerTransSlctn?.delegate = self
+        textPickerTransSlctn?.dataSource = self
         
-        sender.inputView = textPicker
+        sender.inputView = textPickerTransSlctn
         
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
@@ -269,7 +285,9 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     // TransSlctn
     func doneTextTransSlctnPicker() {
         // 코드를 저장하기 위한 텍스트 박스 필요
-        txtTransSlctn.text = slctdPickerData[1]
+        transSlctnL1 = slctdPickerDataTransSlctnL1[0]
+        transSlctnL2 = slctdPickerDataTransSlctnL2[1]
+        txtTransSlctn.text = slctdPickerDataTransSlctnL1[1] + " > " + slctdPickerDataTransSlctnL2[1]
         txtTransSlctn.resignFirstResponder()
     }
     
@@ -279,19 +297,59 @@ class RegisterViewController: UITableViewController, UIPickerViewDelegate {
     }
     
     // 픽커 공통
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        var num: Int = 1
+        if pickerView == textPickerTransMns {
+            num = 1
+        } else if pickerView == textPickerTransSlctn {
+            num = 2
+        }
+        return num
     }
+    
     // 픽커 공통
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
+        var cnt: Int = 0
+        if pickerView == textPickerTransMns {
+            cnt = pickerTransMns.count
+        } else if pickerView == textPickerTransSlctn {
+            cnt = pickerTransSlctn[component].count
+        }
+        return cnt
     }
+ 
     // 픽커 공통
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row][1]
+        var value = ""
+        if pickerView == textPickerTransMns {
+            value = pickerTransMns[row][1]
+        } else if pickerView == textPickerTransSlctn {
+            value = pickerTransSlctn[component][row][1]
+        }
+        return value
     }
+    
     // 픽커 공통
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        slctdPickerData = pickerData[row]
+        if pickerView == textPickerTransMns {
+            slctdPickerDataTransMns = pickerTransMns[row]
+            NSLog("선택된 값 : \(pickerTransMns[row])")
+        } else if pickerView == textPickerTransSlctn {
+            if component == 0 {
+                slctdPickerDataTransSlctnL1 = pickerTransSlctn[component][row]
+                if slctdPickerDataTransSlctnL1[0] == "001" {
+                    pickerTransSlctn = [[["000", "선택"], ["001", "용돈"], ["002", "생활비"], ["003", "쇼핑"], ["004", "문화"]], [["00", "선택"], ["01", "선택1"], ["02", "선택2"]]]
+                    self.textPickerTransSlctn?.reloadAllComponents()
+                } else {
+                    pickerTransSlctn = [[["000", "선택"], ["001", "용돈"], ["002", "생활비"], ["003", "쇼핑"], ["004", "문화"]], [["00", "선택"]]]
+                    self.textPickerTransSlctn?.reloadAllComponents()
+                }
+            }
+            if component == 1 {
+                slctdPickerDataTransSlctnL2 = pickerTransSlctn[component][row]
+            }
+            NSLog("선택된 값 : \(component), \(row), \(pickerTransSlctn[component][row])")
+        }
+        
     }
 }

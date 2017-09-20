@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7105B8CE1F67B0E000E853AB /* money.db in Resources */ = {isa = PBXBuildFile; fileRef = 7105B8CD1F67B0E000E853AB /* money.db */; };
+		71165EA91F6A187C0005FA45 /* IETransInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71165EA81F6A187C0005FA45 /* IETransInfoDelegate.swift */; };
+		711831871EA34E7300A7A6A3 /* ConfigMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711831861EA34E7300A7A6A3 /* ConfigMainViewController.swift */; };
+		7132165D1F691220002B145B /* IEAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132165C1F691220002B145B /* IEAddViewController.swift */; };
+		7132165F1F692A2D002B145B /* IEAddIncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132165E1F692A2D002B145B /* IEAddIncViewController.swift */; };
+		71534FD31E755A4C0074AB1E /* MyDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71534FD21E755A4C0074AB1E /* MyDateTime.swift */; };
 		71B7653D1E6A7A9900FB9C4D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B7653C1E6A7A9900FB9C4D /* Utils.swift */; };
 		71B834EE1E2D27E6004D2191 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B834E41E2D27E6004D2191 /* FMDatabase.m */; };
 		71B834EF1E2D27E6004D2191 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 71B834E61E2D27E6004D2191 /* FMDatabaseAdditions.m */; };
@@ -25,6 +31,7 @@
 		71DD203C1E222EFA00422299 /* moneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD203B1E222EFA00422299 /* moneyTests.swift */; };
 		71DD20471E22531900422299 /* DealingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD20461E22531900422299 /* DealingCell.swift */; };
 		71DD20491E2263C600422299 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71DD20481E2263C600422299 /* DetailViewController.swift */; };
+		71F24E071F6BA4E700326E24 /* IEAddExpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F24E061F6BA4E700326E24 /* IEAddExpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7105B8CD1F67B0E000E853AB /* money.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = money.db; sourceTree = "<group>"; };
+		71165EA81F6A187C0005FA45 /* IETransInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IETransInfoDelegate.swift; sourceTree = "<group>"; };
+		711831861EA34E7300A7A6A3 /* ConfigMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigMainViewController.swift; sourceTree = "<group>"; };
+		712CE2B41F650F73003F7BC3 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../../Downloads/realm-swift-2.10.0/ios/swift-3.1/Realm.framework"; sourceTree = "<group>"; };
+		712CE2B51F650F73003F7BC3 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../../Downloads/realm-swift-2.10.0/ios/swift-3.1/RealmSwift.framework"; sourceTree = "<group>"; };
+		7132165C1F691220002B145B /* IEAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IEAddViewController.swift; sourceTree = "<group>"; };
+		7132165E1F692A2D002B145B /* IEAddIncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IEAddIncViewController.swift; sourceTree = "<group>"; };
+		71534FD21E755A4C0074AB1E /* MyDateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDateTime.swift; sourceTree = "<group>"; };
 		71B7653C1E6A7A9900FB9C4D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		71B834E21E2D27E6004D2191 /* money-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "money-Bridging-Header.h"; sourceTree = "<group>"; };
 		71B834E31E2D27E6004D2191 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -67,6 +82,7 @@
 		71DD203D1E222EFA00422299 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		71DD20461E22531900422299 /* DealingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealingCell.swift; sourceTree = "<group>"; };
 		71DD20481E2263C600422299 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		71F24E061F6BA4E700326E24 /* IEAddExpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IEAddExpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +107,8 @@
 		71B834F31E2D2844004D2191 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				712CE2B41F650F73003F7BC3 /* Realm.framework */,
+				712CE2B51F650F73003F7BC3 /* RealmSwift.framework */,
 				71B834F41E2D2844004D2191 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -99,6 +117,7 @@
 		71DD201A1E222EFA00422299 = {
 			isa = PBXGroup;
 			children = (
+				7105B8CD1F67B0E000E853AB /* money.db */,
 				71DD20251E222EFA00422299 /* money */,
 				71DD203A1E222EFA00422299 /* moneyTests */,
 				71DD20241E222EFA00422299 /* Products */,
@@ -134,6 +153,11 @@
 				71CA13DC1E33A3E000718957 /* TransInfo.swift */,
 				71CA13DE1E33A60F00718957 /* TransInfoSet.swift */,
 				71DD202A1E222EFA00422299 /* Main.storyboard */,
+				71F24E061F6BA4E700326E24 /* IEAddExpViewController.swift */,
+				71165EA81F6A187C0005FA45 /* IETransInfoDelegate.swift */,
+				7132165E1F692A2D002B145B /* IEAddIncViewController.swift */,
+				7132165C1F691220002B145B /* IEAddViewController.swift */,
+				711831861EA34E7300A7A6A3 /* ConfigMainViewController.swift */,
 				71DD20481E2263C600422299 /* DetailViewController.swift */,
 				71BB434D1E46CF1900743ED8 /* RegisterViewController.swift */,
 				71DD202D1E222EFA00422299 /* Assets.xcassets */,
@@ -142,6 +166,7 @@
 				71DD20461E22531900422299 /* DealingCell.swift */,
 				71B834E21E2D27E6004D2191 /* money-Bridging-Header.h */,
 				71B7653C1E6A7A9900FB9C4D /* Utils.swift */,
+				71534FD21E755A4C0074AB1E /* MyDateTime.swift */,
 			);
 			path = money;
 			sourceTree = "<group>";
@@ -241,6 +266,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7105B8CE1F67B0E000E853AB /* money.db in Resources */,
 				71DD20311E222EFA00422299 /* LaunchScreen.storyboard in Resources */,
 				71DD202E1E222EFA00422299 /* Assets.xcassets in Resources */,
 				71DD202C1E222EFA00422299 /* Main.storyboard in Resources */,
@@ -261,10 +287,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7132165D1F691220002B145B /* IEAddViewController.swift in Sources */,
+				7132165F1F692A2D002B145B /* IEAddIncViewController.swift in Sources */,
+				71534FD31E755A4C0074AB1E /* MyDateTime.swift in Sources */,
 				71DD20471E22531900422299 /* DealingCell.swift in Sources */,
 				71B834F11E2D27E6004D2191 /* FMDatabaseQueue.m in Sources */,
 				71DD20291E222EFA00422299 /* ViewController.swift in Sources */,
 				71BB434E1E46CF1900743ED8 /* RegisterViewController.swift in Sources */,
+				711831871EA34E7300A7A6A3 /* ConfigMainViewController.swift in Sources */,
 				71DD20271E222EFA00422299 /* AppDelegate.swift in Sources */,
 				71B7653D1E6A7A9900FB9C4D /* Utils.swift in Sources */,
 				71CA13DD1E33A3E000718957 /* TransInfo.swift in Sources */,
@@ -274,6 +304,8 @@
 				71CA13DF1E33A60F00718957 /* TransInfoSet.swift in Sources */,
 				71DD20491E2263C600422299 /* DetailViewController.swift in Sources */,
 				71B834EF1E2D27E6004D2191 /* FMDatabaseAdditions.m in Sources */,
+				71F24E071F6BA4E700326E24 /* IEAddExpViewController.swift in Sources */,
+				71165EA91F6A187C0005FA45 /* IETransInfoDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +446,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = U9CDWQR697;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = money/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.es.money;
@@ -430,6 +466,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = U9CDWQR697;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = money/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.es.money;

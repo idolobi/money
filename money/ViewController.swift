@@ -20,9 +20,12 @@ class ViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         NSLog("로그 : viewDidLoad() 시작")
         
+        let bundle = Bundle.main
+        databasePath = bundle.path(forResource: "money", ofType: "db")!
+        
         let fileMgr = FileManager.default
-        let dirPaths = fileMgr.urls(for: .documentDirectory, in: .userDomainMask)
-        databasePath = dirPaths[0].appendingPathComponent("money.db").path
+        //let dirPaths = fileMgr.urls(for: .documentDirectory, in: .userDomainMask)
+        //databasePath = dirPaths[0].appendingPathComponent("money.db").path
         
         NSLog("로그 : DB 파일 위치 세팅(" + databasePath + ")")
         
@@ -34,22 +37,22 @@ class ViewController: UITableViewController {
             }
             
             if ((db?.open()) != nil) {
-                let sqlUsrInfo = "create table if not exists usr_info(usr_id text primary key, usr_pwd text, usr_nm text)"
+                let sqlUsrInfo = "CREATE TABLE IF NOT EXISTS usr_info(usr_id TEXT PRIMARY KEY, usr_pwd TEXT, usr_nm TEXT)"
                 if !(db?.executeStatements(sqlUsrInfo))! {
                     NSLog("데이터 저장소 생성 오류[USR_INFO]")
                 }
                 
-                let sqlBnkacInfo = "create table if not exists bnkac_info(bnkac_id text primary key, usr_id text REFERENCES usr_info(usr_id), bnkac_nm text, bnkac_strt_dt text, bnkac_mntry_unit text)"
+                let sqlBnkacInfo = "CREATE TABLE IF NOT EXISTS bnkac_info(bnkac_id TEXT PRIMARY KEY, usr_id TEXT REFERENCES usr_info(usr_id), bnkac_nm TEXT, bnkac_strt_dt TEXT, bnkac_mntry_unit TEXT)"
                 if !(db?.executeStatements(sqlBnkacInfo))! {
                     NSLog("데이터 저장소 생성 오류[USR_INFO]")
                 }
                 
-                let sqlTransInfo = "create table if not exists trans_info(trans_num integer primary key autoincrement, usr_id text, bnkac_id text, trans_dt text, trans_tm text, pay_trans_mns_cd text, rcv_trans_mns_cd text, trans_div_cd text, hgh_clssf_cd text, mdl_clssf_cd text, low_clssf_cd text, trans_cntnt text, trans_amt numeric, sort_ord_num integer)"
+                let sqlTransInfo = "CREATE TABLE IF NOT EXISTS trans_info(trans_num INTEGER PRIMARY KEY AUTOINCREMENT, usr_id TEXT, bnkac_id TEXT, trans_dt TEXT, trans_tm TEXT, pay_trans_mns_cd TEXT, rcv_trans_mns_cd TEXT, trans_div_cd TEXT, hgh_clssf_cd TEXT, mdl_clssf_cd TEXT, low_clssf_cd TEXT, trans_cntnt TEXT, trans_amt NUMERIC, sort_ord_num INTEGER)"
                 if !(db?.executeStatements(sqlTransInfo))! {
                     NSLog("데이터 저장소 생성 오류[TRANS_INFO]")
                 }
                 
-                let sqlTransMns = "create table if not exists trans_mns(trans_mns_cd text primary key, trans_mns_nm text)"
+                let sqlTransMns = "CREATE TABLE IF NOT EXISTS trans_mns(trans_mns_cd TEXT PRIMARY KEY, trans_mns_nm TEXT)"
                 if !(db?.executeStatements(sqlTransMns))! {
                     NSLog("데이터 저장소 생성 오류[TRANS_MNS]")
                 }
@@ -107,7 +110,7 @@ class ViewController: UITableViewController {
         let data = transInfoSet.items[sec][row]
 
         //cell.lblDealDate.text = "\(data.transDt)"
-        cell.lblDealMeasure.text = "\(data.payTransMnsCd)"
+        cell.lblDealMeasure.text = "\(data.transMnsNm)"
         cell.lblDealContent.text = "\(data.transCntnt)"
         cell.lblDealAmount.text = "\(data.transAmt)"
         
@@ -160,7 +163,7 @@ class ViewController: UITableViewController {
                         prevTransDt = newTransDt
                     }
                     
-                    let transInfo = TransInfo(transDt: newTransDt, transTm: (resultData!.string(forColumn: "trans_tm")!), payTransMnsCd: (resultData!.string(forColumn: "pay_trans_mns_cd")!), transCntnt: (resultData!.string(forColumn: "trans_cntnt")!), transAmt: (resultData!.string(forColumn: "trans_amt")!))
+                    let transInfo = TransInfo(transDt: newTransDt, transTm: (resultData!.string(forColumn: "trans_tm")!), transCntnt: (resultData!.string(forColumn: "trans_cntnt")!), transAmt: (resultData!.string(forColumn: "trans_amt")!), transMnsCds: [(resultData!.string(forColumn: "pay_trans_mns_cd")!)], transClssfCds: ["", "", ""], transMmo: "")
                     transInfoArr.append(transInfo)
                     
                     if rowCnt == rowNum {
